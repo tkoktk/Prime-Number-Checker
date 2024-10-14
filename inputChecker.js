@@ -1,4 +1,7 @@
 class InputChecker {
+    constructor() {
+        this.primeCache = [];
+    }
     isPrime(input) {
 
         if (input <= 1) return false;
@@ -18,6 +21,7 @@ class InputChecker {
         return true;
     }
 
+    //Thought this is the most convenient way to check for letters, spaces and special symbols all in one
     isSpaceOrNaN(input){
         if (input.includes(' ')) return true;
         return isNaN(input);
@@ -25,9 +29,9 @@ class InputChecker {
 
     checkInput(input){
         if (this.isSpaceOrNaN(input)) {
-            console.log(`Yes`);
+            //reject
         } else {
-            console.log('No');
+            if (this.isPrime(input)) this.primeCache.push(input);
         }
     }
 }
