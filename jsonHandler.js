@@ -13,7 +13,7 @@ class JSONHandler {
             const primeNumbersJSON = JSON.parse(data);
             return primeNumbersJSON.primes;
         }
-        console.warn("Warning - json file not found: " + this.filePath);
+        console.warn("Warning - json file not found: ", this.filePath);
         return {}; //Return empty if json doesn't exist, can try to check using algorithm in this scenario
     }
 
