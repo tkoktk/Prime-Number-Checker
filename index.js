@@ -24,7 +24,14 @@ async function getInputFromUser() {
 
         // Calculations go here
         ioHandler.print(`You entered: ${numberInput}`);
-        inputChecker.checkInput('12321');
+
+        //Validate input
+        if (inputChecker.isSpaceOrNaN(numberInput)) {
+
+        } else {
+            inputChecker.checkInput(numberInput);
+            ioHandler.displayNumbers(inputChecker.getPrimeNumbersCache());
+        }
 
         const nextAction = await ioHandler.askQuestion('Would you like to check another number? \nType "exit" to quit or press "enter" to continue: ');
 

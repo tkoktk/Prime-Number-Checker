@@ -20,6 +20,11 @@ class IOHandler {
         console.log(message);
     }
 
+    displayNumbers(numbers) {
+        const sortedNumbers = numbers.sort((a, b) => a - b);
+        this.print(`Prime numbers: ${sortedNumbers.join(', ')}`);
+    }
+
     close() {
         this.rl.close();
     }

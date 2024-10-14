@@ -28,11 +28,33 @@ class InputChecker {
     }
 
     checkInput(input){
-        if (this.isSpaceOrNaN(input)) {
-            //reject
+        //Validate input - should contain no spaces/symbols/letters
+        if(this.isSpaceOrNaN(input)) {
+            console.log("Invalid input - try again")
         } else {
-            if (this.isPrime(input)) this.primeCache.push(input);
+            this.searchInputforPrimes(input);
         }
+    }
+
+    searchInputforPrimes(input){
+        for (let start = 0; start < input.length; start++) {
+            for (let end = start + 1; end <= input.length; end++) {
+                const slice = input.slice(start, end);
+
+                if (this.isPrime(slice)) this.addNumberToCache(slice);
+            }
+        }
+    }
+
+    addNumberToCache(number) {
+        //Avoids duplication
+        if (!this.primeCache.includes(number)) {
+            this.primeCache.push(number);
+        }
+    }
+
+    getPrimeNumbersCache() {
+        return this.primeCache;
     }
 }
 
