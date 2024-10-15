@@ -45,6 +45,3 @@ function displayAndWriteNumbers(totalPrimeNumbersJSON = inputChecker.buildPrimeC
 }
 
 getInputFromUser();
-
-
-
