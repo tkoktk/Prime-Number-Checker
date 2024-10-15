@@ -74,11 +74,6 @@ class InputChecker {
     }
 
     buildPrimeCacheJSON() {
-        //Using a set to avoid duplications when merging found primes with prime cache
-        const primeNumbersSet = new Set(this.primeCache);
-
-
-
         //Using a set to avoid duplication while ensuring that the values are numbers
         const primeNumbersArray = Array.from(new Set([
             ...this.primeCache.map(Number),
