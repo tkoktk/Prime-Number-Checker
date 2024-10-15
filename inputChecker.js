@@ -29,10 +29,12 @@ class InputChecker {
 
     checkInput(input){
         //Validate input - should contain no spaces/symbols/letters
-        if(this.isSpaceOrNaN(input)) {
+        if (this.isSpaceOrNaN(input)) {
             console.log("Invalid input - try again")
         } else {
             this.searchInputforPrimes(input);
+            //All primes have been found, so write the new primecache to the json
+
         }
     }
 
@@ -41,21 +43,30 @@ class InputChecker {
             for (let end = start + 1; end <= input.length; end++) {
                 const slice = input.slice(start, end);
 
-                if (this.isPrime(slice)) this.addNumberToCache(slice);
+                //Check cache first for speed
+                if (this.isInCache(slice) || this.isPrime(slice)) {
+                    this.addNumberToCache(slice);
+                }
             }
         }
     }
 
     addNumberToCache(number) {
         //Avoids duplication
-        if (!this.primeCache.includes(number)) {
+        if (!this.isInCache(number)) {
             this.primeCache.push(number);
         }
+    }
+
+    isInCache(number) {
+        return this.primeCache.includes(number);
     }
 
     getPrimeNumbersCache() {
         return this.primeCache;
     }
+
+
 }
 
 module.exports = InputChecker;

@@ -21,8 +21,12 @@ class IOHandler {
     }
 
     displayNumbers(numbers) {
-        const sortedNumbers = numbers.sort((a, b) => a - b);
-        this.print(`Prime numbers: ${sortedNumbers.join(', ')}`);
+        if (numbers.length > 0) {
+            const sortedNumbers = numbers.sort((a, b) => a - b);
+            this.print(`Prime numbers: ${sortedNumbers.join(', ')}`);
+        } else {
+            this.print(`No Prime numbers found`);
+        }
     }
 
     close() {

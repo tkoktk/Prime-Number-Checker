@@ -14,11 +14,14 @@ class JSONHandler {
             return primeNumbersJSON.primes;
         }
         console.warn("Warning - json file not found: ", this.filePath);
-        return {}; //Return empty if json doesn't exist, can try to check using algorithm in this scenario
+        return {}; //Return empty if json doesn't exist, app will rely solely on the algorithm instead
     }
 
-    write(data) {
-        fs.writeFileSync(this.filePath, JSON.stringify(data, null, 2));
+    writePrimeCacheToFile(primeCache) {
+        if (primeCache.length > 0) {
+            const primeCacheJSON = JSON.stringify(primeCache, null, 2);
+            fs.writeFileSync(this.filePath, primeCacheJSON, 'utf8');
+        }
     }
 }
 
