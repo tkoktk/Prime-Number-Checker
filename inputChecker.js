@@ -1,5 +1,5 @@
 class InputChecker {
-    constructor(primeCache) {
+    constructor(primeCache = []) {
         this.primeCache = primeCache;
         this.foundPrimeNumbers = [];
     }
