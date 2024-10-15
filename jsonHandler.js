@@ -17,9 +17,9 @@ class JSONHandler {
         return {}; //Return empty if json doesn't exist, app will rely solely on the algorithm instead
     }
 
-    writePrimeCacheToFile(primeCache) {
-        if (primeCache.length > 0) {
-            const primeCacheJSON = JSON.stringify(primeCache, null, 2);
+    writePrimeCacheToFile(primeNumbersObject) {
+        if (primeNumbersObject.primes !== undefined) {
+            const primeCacheJSON = JSON.stringify(primeNumbersObject);
             fs.writeFileSync(this.filePath, primeCacheJSON, 'utf8');
         }
     }

@@ -1,6 +1,7 @@
 class InputChecker {
-    constructor() {
-        this.primeCache = [];
+    constructor(primeCache) {
+        this.primeCache = primeCache;
+        this.foundPrimeNumbers = [];
     }
     isPrime(input) {
 
@@ -33,8 +34,6 @@ class InputChecker {
             console.log("Invalid input - try again")
         } else {
             this.searchInputforPrimes(input);
-            //All primes have been found, so write the new primecache to the json
-
         }
     }
 
@@ -45,16 +44,16 @@ class InputChecker {
 
                 //Check cache first for speed
                 if (this.isInCache(slice) || this.isPrime(slice)) {
-                    this.addNumberToCache(slice);
+                    this.addNumberToFoundCache(slice);
                 }
             }
         }
     }
 
-    addNumberToCache(number) {
+    addNumberToFoundCache(number) {
         //Avoids duplication
-        if (!this.isInCache(number)) {
-            this.primeCache.push(number);
+        if (!this.isInCache(number) && !this.isInFoundNumbers(number)) {
+            this.foundPrimeNumbers.push(number);
         }
     }
 
@@ -62,11 +61,37 @@ class InputChecker {
         return this.primeCache.includes(number);
     }
 
+    isInFoundNumbers(number) {
+        return this.foundPrimeNumbers.includes(number);
+    }
+
     getPrimeNumbersCache() {
         return this.primeCache;
     }
 
+    getFoundPrimeNumbers() {
+        return this.foundPrimeNumbers;
+    }
 
+    buildPrimeCacheJSON() {
+        //Using a set to avoid duplications when merging found primes with prime cache
+        const primeNumbersSet = new Set(this.primeCache);
+
+
+
+        //Using a set to avoid duplication while ensuring that the values are numbers
+        const primeNumbersArray = Array.from(new Set([
+            ...this.primeCache.map(Number),
+            ...this.foundPrimeNumbers.map(Number)
+        ]));
+
+        const sortedPrimeNumbersArray = primeNumbersArray.sort((a, b) => a - b);
+        const primeNumbersObject  = {
+            primes: sortedPrimeNumbersArray,
+        }
+
+        return primeNumbersObject;
+    }
 }
 
 module.exports = InputChecker;

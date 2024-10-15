@@ -20,9 +20,9 @@ class IOHandler {
         console.log(message);
     }
 
-    displayNumbers(numbers) {
-        if (numbers.length > 0) {
-            const sortedNumbers = numbers.sort((a, b) => a - b);
+    displayNumbers(primeNumbersFromCache) {
+        if (primeNumbersFromCache.length > 0) {
+            const sortedNumbers = primeNumbersFromCache.sort((a, b) => a - b);
             this.print(`Prime numbers: ${sortedNumbers.join(', ')}`);
         } else {
             this.print(`No Prime numbers found`);

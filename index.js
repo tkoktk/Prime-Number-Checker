@@ -10,10 +10,14 @@ const filePath = process.env.PRIME_CACHE_PATH || path.join(__dirname, 'jsons/pri
 const jsonHandler = new JSONHandler(filePath);
 
 const primeNumbersCache = jsonHandler.read();
+/*
+Expected Prime Number JSON Structure:
+{"primes":[2,3,5,7,11]}
+ */
 console.log('Current Prime Cache: ', primeNumbersCache);
 
 const ioHandler = new IOHandler();
-const inputChecker = new InputChecker();
+const inputChecker = new InputChecker(primeNumbersCache);
 
 async function getInputFromUser() {
     const usernameInput = await ioHandler.askQuestion('\nEnter your username: ');
@@ -24,7 +28,7 @@ async function getInputFromUser() {
 
         ioHandler.print(`You entered: ${numberInput}`);
         inputChecker.checkInput(numberInput);
-
+        displayAndWriteNumbers()
         const nextAction = await ioHandler.askQuestion('\nWould you like to check another number? \nType "exit" to quit or press "enter" to continue: ');
 
         if (nextAction.toLowerCase() === 'exit') {
@@ -35,9 +39,9 @@ async function getInputFromUser() {
 }
 
 //Use default parameter value in case we ever want to display/write a different set of values to the json
-async function displayAndWriteNumbers(numbers = inputChecker.getPrimeNumbersCache()){
-    jsonHandler.writePrimeCacheToFile(numbers)
-    ioHandler.displayNumbers(numbers);
+function displayAndWriteNumbers(totalPrimeNumbersJSON = inputChecker.buildPrimeCacheJSON(), primeNumbersFromInput = inputChecker.getFoundPrimeNumbers()) {
+    jsonHandler.writePrimeCacheToFile(totalPrimeNumbersJSON);
+    ioHandler.displayNumbers(primeNumbersFromInput);
 }
 
 getInputFromUser();
